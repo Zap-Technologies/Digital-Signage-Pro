@@ -1,6 +1,7 @@
 'use client';
 
 import { mockAnalytics } from '@/lib/mockData';
+import { formatDateShort } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import {
   LineChart,
@@ -22,10 +23,7 @@ import { Button } from '@/components/ui/button';
 
 export function AnalyticsModule() {
   const chartData = mockAnalytics.map((item) => ({
-    date: item.date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-    }),
+    date: formatDateShort(item.date),
     devices: item.activeDevices,
     playbacks: item.totalPlaybacks,
     views: Math.floor(item.totalViews / 100),

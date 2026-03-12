@@ -14,10 +14,11 @@ import {
   Bar,
 } from 'recharts';
 import { mockAnalytics } from '@/lib/mockData';
+import { formatDateShort } from '@/lib/utils';
 
 export function AnalyticsChart() {
   const chartData = mockAnalytics.map((item) => ({
-    date: item.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    date: formatDateShort(item.date),
     devices: item.activeDevices,
     playbacks: item.totalPlaybacks,
     errors: Math.floor(item.errorRate * 10), // Scale for visibility
@@ -81,7 +82,7 @@ export function AnalyticsChart() {
 
 export function ErrorRateChart() {
   const errorData = mockAnalytics.slice(-7).map((item) => ({
-    date: item.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    date: formatDateShort(item.date),
     errorRate: parseFloat(item.errorRate.toFixed(2)),
   }));
 

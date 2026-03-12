@@ -10,6 +10,7 @@ import {
   Filter,
 } from 'lucide-react';
 import { mockSecurityEvents, mockAuditLogs, mockUsers } from '@/lib/mockData';
+import { formatDateTime } from '@/lib/utils';
 import { SecurityEvent, AuditLog } from '@/lib/types';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -121,7 +122,7 @@ export function SecurityManagement() {
                     <p className="font-medium">{event.description}</p>
                     <p className="text-sm mt-1 opacity-75">
                       {event.type.replace('_', ' ')} • {user?.name || 'System'} •{' '}
-                      {event.timestamp.toLocaleString()}
+                      {formatDateTime(event.timestamp)}
                     </p>
                   </div>
                 </div>
@@ -196,7 +197,7 @@ export function SecurityManagement() {
                       )}
                     </td>
                     <td className="px-4 py-3 text-slate-600 text-xs">
-                      {log.timestamp.toLocaleString()}
+                      {formatDateTime(log.timestamp)}
                     </td>
                   </tr>
                 );

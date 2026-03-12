@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Plus, Search, Eye, CheckCircle, XCircle, Clock, AlertCircle } from 'lucide-react';
 import { mockContent } from '@/lib/mockData';
 import { Content } from '@/lib/types';
+import { formatDateShort } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -196,10 +197,7 @@ export function ContentModeration() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-slate-600 text-sm">
-                    {content.uploadedAt.toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                    })}
+                    {formatDateShort(content.uploadedAt)}
                   </td>
                   <td className="px-6 py-4 text-slate-600 text-sm">
                     {content.fileSize} MB
