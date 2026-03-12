@@ -10,7 +10,7 @@ import {
   Eye,
   AlertTriangle,
   CheckCircle,
-  RadioOff,
+  WifiOff,
   Thermometer,
 } from 'lucide-react';
 import { mockDevices } from '@/lib/mockData';
@@ -69,7 +69,7 @@ export function DeviceManagement() {
 
   const statusIcons = {
     online: <CheckCircle className="text-green-500" size={20} />,
-    offline: <RadioOff className="text-red-500" size={20} />,
+    offline: <WifiOff className="text-red-500" size={20} />,
     error: <AlertTriangle className="text-amber-500" size={20} />,
   };
 
