@@ -12,6 +12,8 @@ import {
   BarChart3,
   Menu,
   X,
+  ListVideo,
+  CalendarClock,
 } from 'lucide-react';
 import { useAdmin } from '@/lib/adminContext';
 import { cn } from '@/lib/utils';
@@ -43,6 +45,18 @@ const navigationItems = [
     roles: ['super_admin', 'admin', 'device_manager'],
   },
   {
+    label: 'Playlists',
+    href: '/admin/playlists',
+    icon: ListVideo,
+    roles: ['super_admin', 'admin', 'moderator'],
+  },
+  {
+    label: 'Scheduling',
+    href: '/admin/scheduling',
+    icon: CalendarClock,
+    roles: ['super_admin', 'admin', 'device_manager'],
+  },
+  {
     label: 'Analytics',
     href: '/admin/analytics',
     icon: BarChart3,
@@ -67,7 +81,7 @@ export function Sidebar() {
   const { currentUser, sidebarOpen, setSidebarOpen } = useAdmin();
 
   const visibleItems = navigationItems.filter((item) =>
-    item.roles.includes(currentUser.role)
+    currentUser ? item.roles.includes(currentUser.role) : false
   );
 
   return (
@@ -145,13 +159,13 @@ export function Sidebar() {
             )}
           >
             <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold flex-shrink-0">
-              {currentUser.name.charAt(0)}
+              {currentUser?.name.charAt(0) ?? '?'}
             </div>
             {sidebarOpen && (
               <div className="min-w-0">
-                <p className="font-medium truncate">{currentUser.name}</p>
+                <p className="font-medium truncate">{currentUser?.name}</p>
                 <p className="text-xs text-slate-400 truncate">
-                  {currentUser.role}
+                  {currentUser?.role}
                 </p>
               </div>
             )}

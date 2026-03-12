@@ -25,16 +25,80 @@ export interface Content {
   id: string;
   title: string;
   description: string;
-  type: 'image' | 'video' | 'html' | 'template';
+  type: 'image' | 'video' | 'html' | 'banner' | 'menu' | 'news_ticker';
   status: 'draft' | 'pending_review' | 'approved' | 'rejected';
   uploadedBy: string;
   uploadedAt: Date;
   modifiedAt: Date;
   fileSize: number;
   duration?: number; // in seconds, for videos
+  width?: number;
+  height?: number;
+  tags: string[];
+  category?: string;
+  thumbnailUrl?: string;
+  previewUrl?: string;
   reviewedBy?: string;
   reviewedAt?: Date;
   rejectionReason?: string;
+}
+
+// Playlist / Template Types
+export interface PlaylistItem {
+  id: string;
+  contentId: string;
+  order: number;
+  duration: number; // seconds to display
+}
+
+export interface Playlist {
+  id: string;
+  name: string;
+  description: string;
+  items: PlaylistItem[];
+  loop: boolean;
+  totalDuration: number; // seconds
+  status: 'draft' | 'active' | 'archived';
+  createdBy: string;
+  createdAt: Date;
+  updatedAt: Date;
+  assignedDevices: string[];
+}
+
+// Device Pairing
+export interface DevicePairingRequest {
+  id: string;
+  pairingCode: string;
+  deviceName: string;
+  deviceType: 'android_tv' | 'tablet' | 'display' | 'player';
+  macAddress: string;
+  requestedAt: Date;
+  status: 'pending' | 'approved' | 'rejected';
+  approvedBy?: string;
+  approvedAt?: Date;
+}
+
+// Schedule Types
+export type ScheduleDay = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+
+export interface ScheduleTimeSlot {
+  start: string; // HH:mm
+  end: string;   // HH:mm
+}
+
+export interface Schedule {
+  id: string;
+  name: string;
+  playlistId: string;
+  deviceIds: string[];
+  days: ScheduleDay[];
+  timeSlot: ScheduleTimeSlot;
+  startDate?: string; // ISO date string YYYY-MM-DD
+  endDate?: string;
+  isActive: boolean;
+  priority: number; // higher = takes precedence
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 // Device Types
