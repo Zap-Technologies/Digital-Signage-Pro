@@ -1,19 +1,19 @@
 'use client';
 
 import { AdminLayout } from '@/components/admin/AdminLayout';
-import { ContentModeration } from '@/components/admin/content/ContentModeration';
+import { MediaLibrary } from '@/components/admin/content/MediaLibrary';
 
 export default function ContentPage() {
   return (
     <AdminLayout>
       <div className="space-y-8">
         <div>
-          <h2 className="text-3xl font-bold text-slate-900">Content Moderation</h2>
+          <h2 className="text-3xl font-bold text-slate-900">Media Library</h2>
           <p className="text-slate-600 mt-2">
-            Review, approve, and manage digital signage content
+            Upload, manage, review and publish all your digital signage content
           </p>
         </div>
-        <ContentModeration />
+        <MediaLibrary />
       </div>
     </AdminLayout>
   );

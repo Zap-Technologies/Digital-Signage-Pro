@@ -12,6 +12,8 @@ import {
   BarChart3,
   Menu,
   X,
+  ListVideo,
+  CalendarClock,
 } from 'lucide-react';
 import { useAdmin } from '@/lib/adminContext';
 import { cn } from '@/lib/utils';
@@ -40,6 +42,18 @@ const navigationItems = [
     label: 'Devices',
     href: '/admin/devices',
     icon: Monitor,
+    roles: ['super_admin', 'admin', 'device_manager'],
+  },
+  {
+    label: 'Playlists',
+    href: '/admin/playlists',
+    icon: ListVideo,
+    roles: ['super_admin', 'admin', 'moderator'],
+  },
+  {
+    label: 'Scheduling',
+    href: '/admin/scheduling',
+    icon: CalendarClock,
     roles: ['super_admin', 'admin', 'device_manager'],
   },
   {
