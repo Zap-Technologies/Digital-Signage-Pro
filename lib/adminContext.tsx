@@ -1,8 +1,19 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { mockUsers } from './mockData';
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { User } from './types';
+
+const SESSION_KEY = 'dsp_current_user';
+
+function readPersistedUser(): User | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    return raw ? (JSON.parse(raw) as User) : null;
+  } catch {
+    return null;
+  }
+}
 
 interface AdminContextType {
   currentUser: User | null;
@@ -19,12 +30,21 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 export function AdminProvider({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  // null = not logged in; set via LoginForm on successful auth
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  // Initialise from sessionStorage so refreshes keep the user logged in
+  const [currentUser, _setCurrentUser] = useState<User | null>(readPersistedUser);
 
-  function logout() {
+  const setCurrentUser = useCallback((user: User | null) => {
+    _setCurrentUser(user);
+    if (user) {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    } else {
+      sessionStorage.removeItem(SESSION_KEY);
+    }
+  }, []);
+
+  const logout = useCallback(() => {
     setCurrentUser(null);
-  }
+  }, [setCurrentUser]);
 
   return (
     <AdminContext.Provider
