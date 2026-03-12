@@ -5,11 +5,13 @@ import { mockUsers } from './mockData';
 import { User } from './types';
 
 interface AdminContextType {
-  currentUser: User;
+  currentUser: User | null;
+  setCurrentUser: (user: User | null) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   darkMode: boolean;
   setDarkMode: (dark: boolean) => void;
+  logout: () => void;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
@@ -17,17 +19,23 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 export function AdminProvider({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  // In a real app, this would come from authentication
-  const currentUser = mockUsers[0]; // Super admin user
+  // null = not logged in; set via LoginForm on successful auth
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  function logout() {
+    setCurrentUser(null);
+  }
 
   return (
     <AdminContext.Provider
       value={{
         currentUser,
+        setCurrentUser,
         sidebarOpen,
         setSidebarOpen,
         darkMode,
         setDarkMode,
+        logout,
       }}
     >
       {children}

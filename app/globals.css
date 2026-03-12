@@ -7,6 +7,13 @@
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+
+  /* Brand panel (login page left side) */
+  --brand-panel: oklch(0.175 0.012 255);
+  --brand-panel-foreground: oklch(0.97 0 0);
+  --brand-panel-muted: oklch(0.62 0.03 255);
+  --brand-accent: oklch(0.56 0.22 257);
+  --brand-accent-hover: oklch(0.50 0.22 257);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -114,6 +121,13 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand tokens */
+  --color-brand-panel: var(--brand-panel);
+  --color-brand-panel-foreground: var(--brand-panel-foreground);
+  --color-brand-panel-muted: var(--brand-panel-muted);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-hover: var(--brand-accent-hover);
 }
 
 @layer base {
