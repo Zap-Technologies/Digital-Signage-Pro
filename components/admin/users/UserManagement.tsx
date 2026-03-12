@@ -211,7 +211,10 @@ export function UserManagement() {
 
         {filteredUsers.length === 0 && (
           <div className="p-12 text-center">
-            <p className="text-slate-500">No users found</p>
+            <p className="text-slate-700 font-medium">No users found</p>
+            <p className="text-slate-500 text-sm mt-1">
+              Try a different name or email, or add someone new to the canvas.
+            </p>
           </div>
         )}
       </Card>
