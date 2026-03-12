@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
+  Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -63,6 +63,9 @@ function ManualPairDialog({ open, onOpenChange, onApprove }: ManualPairDialogPro
       <DialogContent className="max-w-sm">
         <DialogHeader>
           <DialogTitle>Pair Device by Code</DialogTitle>
+          <DialogDescription>
+            Enter the pairing code displayed on the device screen to approve it.
+          </DialogDescription>
         </DialogHeader>
         <p className="text-sm text-slate-600">
           Enter the pairing code shown on the device screen (e.g. <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs">DSP-4829</code>).

@@ -16,7 +16,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
+  Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter,
 } from '@/components/ui/dialog';
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem,
@@ -120,6 +120,9 @@ function UploadModal({ open, onOpenChange, onUpload }: UploadModalProps) {
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle>Upload Content</DialogTitle>
+          <DialogDescription>
+            Upload an image, video, or HTML file and add metadata like category and tags.
+          </DialogDescription>
         </DialogHeader>
 
         {/* Drop zone */}
@@ -241,6 +244,9 @@ function PreviewModal({ content, open, onOpenChange, onApprove, onReject }: Prev
             <TypeIcon size={18} className="text-slate-500" />
             {content.title}
           </DialogTitle>
+          <DialogDescription>
+            {content.description || `${TYPE_META[content.type].label} · ${content.category ?? 'Uncategorized'} · ${formatSize(content.fileSize)}`}
+          </DialogDescription>
         </DialogHeader>
 
         {/* Preview area */}

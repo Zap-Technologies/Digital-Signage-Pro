@@ -17,7 +17,7 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
+  Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter,
 } from '@/components/ui/dialog';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -248,6 +248,9 @@ function PlaylistEditor({ playlist, open, onOpenChange, onSave }: PlaylistEditor
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{isNew ? 'Create New Playlist' : `Edit: ${playlist.name}`}</DialogTitle>
+          <DialogDescription>
+            {isNew ? 'Add content items, set durations, and configure looping for your new playlist.' : 'Reorder items, adjust durations, and update playlist settings.'}
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-5">

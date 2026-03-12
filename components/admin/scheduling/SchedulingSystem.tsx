@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
+  Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter,
 } from '@/components/ui/dialog';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -142,6 +142,9 @@ function ScheduleEditor({ schedule, open, onOpenChange, onSave }: ScheduleEditor
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{isNew ? 'Create Schedule' : `Edit: ${schedule.name}`}</DialogTitle>
+          <DialogDescription>
+            {isNew ? 'Configure a new schedule to assign playlists to devices at specific times.' : 'Update the schedule settings, time slots, and device assignments.'}
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-5">
