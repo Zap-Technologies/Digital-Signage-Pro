@@ -18,7 +18,7 @@ export function formatDate(
 }
 
 export function formatDateTime(date: Date): string {
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleString('en-US', {
     timeZone: 'UTC',
     year: 'numeric',
     month: 'short',
