@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Plus, Search, MoreVertical, CheckCircle2, XCircle } from 'lucide-react';
 import { mockUsers } from '@/lib/mockData';
 import { User, UserRole } from '@/lib/types';
+import { formatDateTime } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -155,14 +156,7 @@ export function UserManagement() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-slate-600 text-sm">
-                    {user.lastLogin
-                      ? user.lastLogin.toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : 'Never'}
+                    {user.lastLogin ? formatDateTime(user.lastLogin) : 'Never'}
                   </td>
                   <td className="px-6 py-4">
                     <DropdownMenu>

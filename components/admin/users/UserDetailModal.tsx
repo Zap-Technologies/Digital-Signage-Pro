@@ -1,6 +1,7 @@
 'use client';
 
 import { User, UserRole } from '@/lib/types';
+import { formatDate, formatDateTime } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -138,11 +139,7 @@ export function UserDetailModal({
                 Created
               </label>
               <p className="text-slate-600 text-sm">
-                {user.createdAt.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
+                {formatDate(user.createdAt, { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
             </div>
             <div>
@@ -151,13 +148,7 @@ export function UserDetailModal({
               </label>
               <p className="text-slate-600 text-sm">
                 {user.lastLogin
-                  ? user.lastLogin.toLocaleString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })
+                  ? formatDateTime(user.lastLogin)
                   : 'Never'}
               </p>
             </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Content } from '@/lib/types';
 import { mockUsers } from '@/lib/mockData';
+import { formatDateTime, formatDateShort } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -114,13 +115,7 @@ export function ContentDetailModal({
                 Upload Date
               </label>
               <p className="text-slate-600 text-sm">
-                {content.uploadedAt.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+                {formatDateTime(content.uploadedAt)}
               </p>
             </div>
             <div>
@@ -157,10 +152,7 @@ export function ContentDetailModal({
                 <div>
                   <p className="text-slate-600">Review Date</p>
                   <p className="font-medium text-slate-900">
-                    {content.reviewedAt.toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                    })}
+                    {formatDateShort(content.reviewedAt)}
                   </p>
                 </div>
               </div>
