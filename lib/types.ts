@@ -130,6 +130,29 @@ export interface Analytics {
   newUsers: number;
 }
 
+export interface DeviceActivityEvent {
+  id: string;
+  deviceId: string;
+  deviceName: string;
+  eventType: 'online' | 'offline' | 'heartbeat' | 'error' | 'reboot' | 'content_sync';
+  message: string;
+  timestamp: Date;
+}
+
+export interface PlaybackRecord {
+  id: string;
+  deviceId: string;
+  deviceName: string;
+  contentId: string;
+  contentTitle: string;
+  contentType: string;
+  playlistId: string;
+  playlistName: string;
+  startedAt: Date;
+  durationSeconds: number;
+  completed: boolean;
+}
+
 // Security/Audit Types
 export interface AuditLog {
   id: string;

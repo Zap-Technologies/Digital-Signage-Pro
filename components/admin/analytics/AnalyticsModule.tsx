@@ -1,7 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { mockAnalytics } from '@/lib/mockData';
 import { formatDateShort } from '@/lib/utils';
+import { DeviceActivityLog } from './DeviceActivityLog';
+import { PlaybackReport } from './PlaybackReport';
+import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import {
   LineChart,
@@ -21,7 +25,17 @@ import {
 import { Download, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const TABS = [
+  { id: 'overview',  label: 'Overview' },
+  { id: 'activity',  label: 'Device Activity' },
+  { id: 'playback',  label: 'Playback Report' },
+] as const;
+
+type Tab = typeof TABS[number]['id'];
+
 export function AnalyticsModule() {
+  const [activeTab, setActiveTab] = useState<Tab>('overview');
+
   const chartData = mockAnalytics.map((item) => ({
     date: formatDateShort(item.date),
     devices: item.activeDevices,
@@ -66,6 +80,28 @@ export function AnalyticsModule() {
 
   return (
     <div className="space-y-8">
+      {/* Tab navigation */}
+      <div className="flex gap-1 border-b border-slate-200">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={cn(
+              'px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px',
+              activeTab === tab.id
+                ? 'border-blue-600 text-blue-600'
+                : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {activeTab === 'activity' && <DeviceActivityLog />}
+      {activeTab === 'playback' && <PlaybackReport />}
+
+      {activeTab === 'overview' && <>
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
@@ -211,6 +247,7 @@ export function AnalyticsModule() {
           Export Report
         </Button>
       </div>
+      </>}
     </div>
   );
 }

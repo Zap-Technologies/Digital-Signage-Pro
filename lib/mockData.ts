@@ -12,6 +12,8 @@ import {
   PlaylistItem,
   DevicePairingRequest,
   Schedule,
+  DeviceActivityEvent,
+  PlaybackRecord,
 } from './types';
 
 const ROLE_PERMISSIONS: Record<UserRole, string[]> = {
@@ -533,6 +535,55 @@ export const mockSystemSettings: SystemSettings = {
   contentRetentionDays: 365,
   auditLogRetentionDays: 90,
 };
+
+const deviceNames: Record<string, string> = {
+  device_1: 'Main Lobby Display',
+  device_2: 'East Wing Display',
+  device_3: 'Chicago Branch Display',
+  device_4: 'Server Node 01',
+  device_5: 'Los Angeles Store Display',
+};
+
+export const mockDeviceActivity: DeviceActivityEvent[] = [
+  { id: 'act_1',  deviceId: 'device_1', deviceName: deviceNames.device_1, eventType: 'heartbeat',     message: 'Heartbeat received — uptime 99.8%',              timestamp: new Date(Date.now() - 30 * 1000) },
+  { id: 'act_2',  deviceId: 'device_2', deviceName: deviceNames.device_2, eventType: 'heartbeat',     message: 'Heartbeat received — uptime 98.5%',              timestamp: new Date(Date.now() - 45 * 1000) },
+  { id: 'act_3',  deviceId: 'device_5', deviceName: deviceNames.device_5, eventType: 'content_sync',  message: 'Media sync completed — 3 files updated',         timestamp: new Date(Date.now() - 3 * 60 * 1000) },
+  { id: 'act_4',  deviceId: 'device_3', deviceName: deviceNames.device_3, eventType: 'offline',       message: 'Device went offline — no heartbeat for 5 min',   timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000) },
+  { id: 'act_5',  deviceId: 'device_1', deviceName: deviceNames.device_1, eventType: 'error',         message: 'Video decode error on content_2 (skipped)',       timestamp: new Date(Date.now() - 30 * 60 * 1000) },
+  { id: 'act_6',  deviceId: 'device_2', deviceName: deviceNames.device_2, eventType: 'reboot',        message: 'Remote reboot initiated by James Wilson',         timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000) },
+  { id: 'act_7',  deviceId: 'device_2', deviceName: deviceNames.device_2, eventType: 'online',        message: 'Device back online after reboot',                 timestamp: new Date(Date.now() - 1.9 * 60 * 60 * 1000) },
+  { id: 'act_8',  deviceId: 'device_5', deviceName: deviceNames.device_5, eventType: 'heartbeat',     message: 'Heartbeat received — uptime 97.2%',              timestamp: new Date(Date.now() - 2 * 60 * 1000) },
+  { id: 'act_9',  deviceId: 'device_4', deviceName: deviceNames.device_4, eventType: 'heartbeat',     message: 'Server heartbeat — CPU 14%, RAM 38%',            timestamp: new Date(Date.now() - 5 * 1000) },
+  { id: 'act_10', deviceId: 'device_1', deviceName: deviceNames.device_1, eventType: 'content_sync',  message: 'Media sync completed — 1 file updated',          timestamp: new Date(Date.now() - 90 * 60 * 1000) },
+  { id: 'act_11', deviceId: 'device_3', deviceName: deviceNames.device_3, eventType: 'error',         message: 'Network timeout — reconnection attempt failed',   timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000) },
+  { id: 'act_12', deviceId: 'device_5', deviceName: deviceNames.device_5, eventType: 'error',         message: 'High temperature warning — 45°C',                timestamp: new Date(Date.now() - 20 * 60 * 1000) },
+  { id: 'act_13', deviceId: 'device_1', deviceName: deviceNames.device_1, eventType: 'online',        message: 'Device started, playlist assigned',               timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000) },
+  { id: 'act_14', deviceId: 'device_2', deviceName: deviceNames.device_2, eventType: 'content_sync',  message: 'Media sync completed — 2 files updated',         timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000) },
+  { id: 'act_15', deviceId: 'device_5', deviceName: deviceNames.device_5, eventType: 'reboot',        message: 'Scheduled nightly reboot completed',              timestamp: new Date(Date.now() - 7 * 60 * 60 * 1000) },
+];
+
+const contentTitles: Record<string, { title: string; type: string }> = {
+  content_1: { title: 'Summer Campaign Banner', type: 'image' },
+  content_3: { title: 'Store Hours Display',    type: 'banner' },
+  content_4: { title: 'Breaking News Ticker',   type: 'news_ticker' },
+  content_7: { title: 'Welcome Video Loop',     type: 'video' },
+  content_2: { title: 'Product Demo Video',     type: 'video' },
+};
+
+export const mockPlaybackRecords: PlaybackRecord[] = [
+  { id: 'pb_1',  deviceId: 'device_1', deviceName: deviceNames.device_1, contentId: 'content_1', contentTitle: contentTitles.content_1.title, contentType: 'image',      playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() -  5 * 60 * 1000),  durationSeconds: 10, completed: true  },
+  { id: 'pb_2',  deviceId: 'device_1', deviceName: deviceNames.device_1, contentId: 'content_7', contentTitle: contentTitles.content_7.title, contentType: 'video',      playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() - 20 * 60 * 1000),  durationSeconds: 15, completed: true  },
+  { id: 'pb_3',  deviceId: 'device_1', deviceName: deviceNames.device_1, contentId: 'content_3', contentTitle: contentTitles.content_3.title, contentType: 'banner',     playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() - 35 * 60 * 1000),  durationSeconds: 8,  completed: true  },
+  { id: 'pb_4',  deviceId: 'device_1', deviceName: deviceNames.device_1, contentId: 'content_4', contentTitle: contentTitles.content_4.title, contentType: 'news_ticker',playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() - 50 * 60 * 1000),  durationSeconds: 12, completed: true  },
+  { id: 'pb_5',  deviceId: 'device_2', deviceName: deviceNames.device_2, contentId: 'content_1', contentTitle: contentTitles.content_1.title, contentType: 'image',      playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() -  8 * 60 * 1000),  durationSeconds: 10, completed: true  },
+  { id: 'pb_6',  deviceId: 'device_5', deviceName: deviceNames.device_5, contentId: 'content_2', contentTitle: contentTitles.content_2.title, contentType: 'video',      playlistId: 'playlist_2', playlistName: 'Product Showcase',    startedAt: new Date(Date.now() - 12 * 60 * 1000),  durationSeconds: 45, completed: true  },
+  { id: 'pb_7',  deviceId: 'device_5', deviceName: deviceNames.device_5, contentId: 'content_1', contentTitle: contentTitles.content_1.title, contentType: 'image',      playlistId: 'playlist_2', playlistName: 'Product Showcase',    startedAt: new Date(Date.now() - 58 * 60 * 1000),  durationSeconds: 10, completed: true  },
+  { id: 'pb_8',  deviceId: 'device_1', deviceName: deviceNames.device_1, contentId: 'content_1', contentTitle: contentTitles.content_1.title, contentType: 'image',      playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() - 65 * 60 * 1000),  durationSeconds: 10, completed: true  },
+  { id: 'pb_9',  deviceId: 'device_2', deviceName: deviceNames.device_2, contentId: 'content_7', contentTitle: contentTitles.content_7.title, contentType: 'video',      playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() - 75 * 60 * 1000),  durationSeconds: 15, completed: false },
+  { id: 'pb_10', deviceId: 'device_5', deviceName: deviceNames.device_5, contentId: 'content_2', contentTitle: contentTitles.content_2.title, contentType: 'video',      playlistId: 'playlist_2', playlistName: 'Product Showcase',    startedAt: new Date(Date.now() - 90 * 60 * 1000),  durationSeconds: 45, completed: true  },
+  { id: 'pb_11', deviceId: 'device_1', deviceName: deviceNames.device_1, contentId: 'content_3', contentTitle: contentTitles.content_3.title, contentType: 'banner',     playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() - 2 * 60 * 60 * 1000), durationSeconds: 8,  completed: true  },
+  { id: 'pb_12', deviceId: 'device_2', deviceName: deviceNames.device_2, contentId: 'content_4', contentTitle: contentTitles.content_4.title, contentType: 'news_ticker',playlistId: 'playlist_1', playlistName: 'Lobby Welcome Loop',  startedAt: new Date(Date.now() - 2.5 * 60 * 60 * 1000), durationSeconds: 12, completed: true },
+];
 
 export const mockDashboardStats: DashboardStats = {
   totalUsers: 24,
