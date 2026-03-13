@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { DeviceManagement } from '@/components/admin/devices/DeviceManagement';
 import { DevicePairing } from '@/components/admin/devices/DevicePairing';
+import { DeviceStatusOverview } from '@/components/admin/devices/DeviceStatusOverview';
 import { cn } from '@/lib/utils';
 
 const TABS = [
+  { id: 'status', label: 'Status Overview' },
   { id: 'devices', label: 'All Devices' },
   { id: 'pairing', label: 'Device Pairing' },
 ] as const;
@@ -14,7 +16,7 @@ const TABS = [
 type Tab = typeof TABS[number]['id'];
 
 export default function DevicesPage() {
-  const [activeTab, setActiveTab] = useState<Tab>('devices');
+  const [activeTab, setActiveTab] = useState<Tab>('status');
 
   return (
     <AdminLayout>
@@ -44,6 +46,7 @@ export default function DevicesPage() {
           ))}
         </div>
 
+        {activeTab === 'status' && <DeviceStatusOverview />}
         {activeTab === 'devices' && <DeviceManagement />}
         {activeTab === 'pairing' && <DevicePairing />}
       </div>
